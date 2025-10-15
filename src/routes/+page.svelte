@@ -44,7 +44,8 @@
 			raf = null;
 			const screenWidth = window.innerWidth || document.documentElement.clientWidth;
 			const maxOffsetRatio = 0.14;
-			const maxOffset = Math.max(6, rect.width * maxOffsetRatio);
+			const maxDimension = Math.max(rect.width, rect.height);
+			const maxOffset = Math.max(6, maxDimension * maxOffsetRatio);
 
 			for (let i = 0; i < eyePositions.length; i++) {
 				const ex = rect.left + eyePositions[i].rx * rect.width;
