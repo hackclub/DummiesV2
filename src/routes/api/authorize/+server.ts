@@ -7,10 +7,9 @@ export const GET: RequestHandler = async ({ url }) => {
   const redirectUriBase = process.env.ORIGIN || url.origin.replace('http://', 'https://');
   const redirectUri = `${redirectUriBase}/api/slack-callback`;
 
-  const isDev = process.env.NODE_ENV === 'development';
-  console.log('Development mode (forced):', isDev);
 
-  if (isDev) {
+
+  if (dev) {
     // Local development: Redirect directly to mock Slack callback
     throw redirect(302, '/api/slack-callback?mock_user=bort-the-fargler');
   }

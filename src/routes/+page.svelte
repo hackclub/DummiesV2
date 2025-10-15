@@ -1,4 +1,4 @@
-	<script lang="ts">
+<script lang="ts">
 		import { onMount } from 'svelte';
 
 		let container: HTMLDivElement | null = null;
@@ -84,13 +84,11 @@
 
 	<style>
 		/* Fallback font that should load faster*/
-		@import url('https://fonts.googleapis.com/css2?family=Bungee:wght@700&display=swap');
+		/*@import url('https://fonts.googleapis.com/css2?family=Bungee:wght@700&display=swap');*/
 
 		@font-face {
 			font-family: 'Oi';
-			src: url('/fonts/Oi-Regular.woff2') format('woff2'),
-				url('/fonts/Oi-Regular.woff') format('woff'),
-				url('/fonts/Oi-Regular.ttf') format('truetype');
+			src: url('/fonts/Oi-Regular.ttf') format('truetype');
 			font-weight: 700;
 			font-style: normal;
 			font-display: swap;

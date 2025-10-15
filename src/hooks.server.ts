@@ -60,7 +60,7 @@ const redirectMiddleware: Handle = async ({ event, resolve }) => {
 	if (event.url.toString().includes('/api/uploadthing')) return resolve(event);
 
 	// some points like the landing page should not force login
-	const publicPaths = new Set(['/','/landing','/index','/rsvp','/rsvp/','/api/slack-callback','/robots.txt','/sitemap.xml']);
+	const publicPaths = new Set(['/','/landing','/index','/rsvp','/rsvp/','/api/slack-callback','/api/authorize','/robots.txt','/sitemap.xml']);
 	// also allow assets without sign in
 	if (event.url.pathname.startsWith('/static') || event.url.pathname.startsWith('/assets')) return resolve(event);
 
