@@ -8,6 +8,9 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [tailwindcss(), sveltekit()],
         server: {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            },      
             port: 36889,
             host: '0.0.0.0', // Listen on all interfaces for Nest
             allowedHosts: [

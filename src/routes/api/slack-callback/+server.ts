@@ -32,6 +32,36 @@ function parseJwt(slackIdToken: string) {
 }
 
 export async function GET({ url, cookies }: RequestEvent) {
+	if (url.hostname === 'localhost') {
+		// Automatically validate with account 'Bort Fargler' (my goat)
+		const slackId = 'bort-the-fargler';
+		const avatarUrl = 'https://hc-cdn.hel1.your-objectstorage.com/s/v3/e8d16351d675aef80e76a8ed86f7ac609e38c679_image.png';
+		const displayName = 'Bort Fargler';
+
+		await db
+			.insert(rawUsers)
+			.values({
+				slackId,
+				displayName,
+				avatarUrl,
+				isAdmin: false
+			})
+			.onConflictDoUpdate({
+				target: rawUsers.slackId,
+				set: {
+					displayName,
+					avatarUrl
+				}
+			});
+
+		cookies.set('_boba_mahad_says_hi_session', await symmetric.encrypt(slackId, SESSIONS_SECRET), {
+			path: '/',
+			maxAge: 60 * 60 * 24 * 90 // 90 days in seconds
+		});
+
+		throw redirect(301, '/');
+	}
+
 	const searchParams = url.searchParams;
 	const code = searchParams.get('code');
 	if (!code) {
