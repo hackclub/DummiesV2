@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
             allowedHosts: [
                 'localhost',
                 '127.0.0.1',
+                'dummies.hackclub.com',
                 'dummies.peleg2210.hackclub.app'
             ]
         }
