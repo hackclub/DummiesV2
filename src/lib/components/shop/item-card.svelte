@@ -76,14 +76,14 @@
 	<div class="flex items-center justify-between">
 		<span class="boba-chip text-base">
 			<span class="text-lg font-bold">{item.price}</span>
-			<span>{item.price === 1 ? 'token' : 'tokens'}</span>
+			<span>{item.price === 1 ? '🖋️' : '🖋️'}</span>
 		</span>
 		<button
 			onclick={handleBuy}
 			disabled={isOrdering || !canAfford}
 			class="boba-action motion-pop text-sm sm:text-base"
 		>
-			{isOrdering ? 'Ordering...' : !canAfford ? 'Not enough tokens' : 'Buy'}
+			{isOrdering ? 'Ordering...' : !canAfford ? 'Not enough pens' : 'Buy'}
 		</button>
 	</div>
 	{#if orderMessage}

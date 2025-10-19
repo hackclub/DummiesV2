@@ -33,7 +33,7 @@
 					<div class="flex flex-col items-start">
 						<span class="boba-chip text-sm">
 							<span class="text-lg font-semibold">{data.user.tokens}</span>
-							<span>{data.user.tokens === 1 ? 'token' : 'tokens'}</span>
+							<span>{data.user.tokens === 1 ? '🖋️' : '🖋️'}</span>
 						</span>
 					</div>
 				</div>

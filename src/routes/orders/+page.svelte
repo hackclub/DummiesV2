@@ -77,7 +77,7 @@
 								<td class="px-6 py-4 whitespace-nowrap">
 									<span class="boba-chip text-xs sm:text-sm">
 										<span class="text-base font-bold">{order.priceAtOrder}</span>
-										<span>tokens</span>
+										<span>🖋️</span>
 									</span>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">

@@ -40,7 +40,7 @@
 				<div class="flex items-center justify-between">
 					<span class="boba-chip text-base">
 						<span class="text-lg font-bold">{item.price}</span>
-						<span>{item.price === 1 ? 'token' : 'tokens'}</span>
+						<span>{item.price === 1 ? '🖋️' : '🖋️'}</span>
 					</span>
 					<span class="boba-badge text-xs uppercase tracking-[0.14em]">{item.type}</span>
 				</div>

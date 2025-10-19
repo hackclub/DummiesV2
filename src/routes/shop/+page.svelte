@@ -11,7 +11,6 @@
   });
 </script>
 
-<h1>Shop</h1>
 <div class="shop-grid">
   {#each shopItems as item}
     <ItemCard {item} userTokens={100} />
