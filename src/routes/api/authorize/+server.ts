@@ -1,6 +1,5 @@
 import { PUBLIC_SLACK_CLIENT_ID } from '$env/static/public';
 import { redirect, type RequestHandler } from '@sveltejs/kit';
-import { dev } from '$app/environment';
 
 export const GET: RequestHandler = async ({ url }) => {
   // Server-side: pick ORIGIN env if set, otherwise derive from request and force https
@@ -9,8 +8,10 @@ export const GET: RequestHandler = async ({ url }) => {
 
 
 
-  if (dev) {
-    // Local development: Redirect directly to mock Slack callback
+  // Only use the mock_user shortcut when the request is actually coming from localhost.
+  // Using the `dev` flag can be unreliable in hosted environments where dev=true might still occur.
+  if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
+    // when in local, redirect to mock user flow
     throw redirect(302, '/api/slack-callback?mock_user=bort-the-fargler');
   }
 
