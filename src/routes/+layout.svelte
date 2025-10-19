@@ -41,6 +41,9 @@
 					<a href="/" class="boba-action motion-pop text-sm md:text-base">
 						Home
 					</a>
+					<a href="/shop" class="boba-action motion-pop text-sm md:text-base">
+						Shop
+					</a>
 					<a href="/orders" class="boba-action motion-pop text-sm md:text-base">
 						Orders
 					</a>

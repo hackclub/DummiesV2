@@ -1,6 +1,9 @@
 <script lang="ts">
 		import { onMount } from 'svelte';
 
+		// Get data from the page - this will include user info from layout
+		export let data: any;
+
 		let container: HTMLDivElement | null = null;
 		let rect = { left: 0, top: 0, width: 0, height: 0 };
 		let mouse = { x: 0, y: 0 };
@@ -107,6 +110,7 @@
 		.hint { font-size:0.85rem; color: #666; }
 
 		.btn { padding:0.6rem 1rem; border-radius:6px; background:#4A154B; color:white; text-decoration:none }
+		.logged_btn { padding:0.6rem 1rem; border-radius:6px; background:#f59e0b; color:white; text-decoration:none; font-weight: 600; }
 
 		/* header/title */
 		.header-wrap { width:70vw; max-width:480px; display:flex; justify-content:center; margin-bottom:0.4rem }	
@@ -147,7 +151,11 @@
 			
 		</div>
 
-		<a class="btn" href="/api/authorize">Sign in with Slack</a>
+		{#if data?.user}
+			<a class="logged_btn" href="/shop">Go to the Shop</a>
+		{:else}
+			<a class="btn" href="/api/authorize">Sign in with Slack</a>
+		{/if}
 		<div class="hint">Made with ❤️ by hack clubbers</div> 	
 	</div>
 
