@@ -147,7 +147,7 @@
 		</div>
 		<div class="textbox-wrap">
 			{#if data?.user}
-				<p class="textbox static">Welcome back, {data.user.name}! <br> Head over to the shop to spend your tokens on school staff, and learning supplies!</p>
+				<p class="textbox static">Welcome back,<br> Head over to the shop to spend your tokens on school staff, and learning supplies!</p>
 			{:else}
 			<p class="textbox static">Dummies YSWS is back for v2! <br> Learn a new programming skill and get new equipment for learning irl! Pick up a new framework or language and earn yourself a github notebook, laptop stickers, pen sets etc. Now featuring a shop, and accounts (sign in with slack ⬇️)</p>
 			{/if}
