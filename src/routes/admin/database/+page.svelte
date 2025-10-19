@@ -381,12 +381,12 @@
 			<!-- Database Operations -->
 			<div class="space-y-3">
 				<h3 class="font-medium text-stone-700">Database Operations</h3>
-				<form method="POST" action="?/backup" use:enhance class="space-y-2">
+				<!--<form method="POST" action="?/backup" use:enhance class="space-y-2">
 					<button type="submit" disabled={isBackingUp} 
 						class="w-full rounded bg-green-600 px-3 py-2 text-xs text-white hover:bg-green-700 disabled:opacity-50">
 						{isBackingUp ? 'Creating Backup...' : 'Create Backup'}
 					</button>
-				</form>
+				</form>-->
 				<form method="POST" action="?/resetOrders" use:enhance>
 					<button type="submit" onclick={(e) => { if (!confirm('This will delete ALL orders. Are you sure?')) e.preventDefault(); }}
 						class="w-full rounded bg-orange-600 px-3 py-2 text-xs text-white hover:bg-orange-700">
