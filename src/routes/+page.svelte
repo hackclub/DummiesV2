@@ -45,8 +45,9 @@
 
 		function render() {
 			raf = null;
-			const screenWidth = window.innerWidth || document.documentElement.clientWidth;
-			const maxOffsetRatio = 0.14;
+			// Use the larger of the container's width or height so pupils move consistently
+			// whether the layout is wide or tall.
+			const maxOffsetRatio = 0.06;
 			const maxDimension = Math.max(rect.width, rect.height);
 			const maxOffset = Math.max(6, maxDimension * maxOffsetRatio);
 
@@ -57,7 +58,9 @@
 				const dy = mouse.y - ey;
 				const distance = Math.sqrt(dx * dx + dy * dy);
 				const angle = Math.atan2(dy, dx);
-				const normalized = Math.min(distance / screenWidth, 1);
+				// eye movement based off bigger of w/ h
+				// the mascot size rather than the overall screen width.
+				const normalized = Math.min(distance / Math.max(1, maxDimension), 1);
 				const offset = normalized * maxOffset;
 				pupils[i].x = Math.cos(angle) * offset;
 				pupils[i].y = Math.sin(angle) * offset;
@@ -99,12 +102,13 @@
 		}
 		.center { display:flex; align-items:center; justify-content:center; min-height:80vh; flex-direction:column; gap:1rem }
 		.mascot { position:relative; max-width:480px; width:70vw; touch-action: none; }
+		.mascot-block { display:flex; flex-direction:column; align-items:center; gap:0; }
 		.mascot img { display:block; width:100%; height:auto; user-select:none; -webkit-user-drag: none; }
 		.eye { position:absolute; width:calc(16%); aspect-ratio:1/1; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow: 0 1px 0 rgba(0,0,0,0.12) inset; overflow:visible; transform-origin:center }
 		.pupil { width:55%; height:55%; background:#111; border-radius:50%; transform: translate(0px, 0px); transition: transform 60ms linear; will-change: transform }
 
 		/* textbox styles */
-		.textbox-wrap { width:70vw; max-width:480px; margin-top:0; display:flex; flex-direction:column; gap:0.4rem; align-items:stretch }
+		.textbox-wrap { width:70vw; max-width:480px; margin-top:0; padding-top:0; display:flex; flex-direction:column; gap:0.4rem; align-items:stretch }
 		.textbox { width:100%; padding:0.75rem 0.9rem; border-radius:10px; border:1px solid rgba(0,0,0,0.08); box-shadow: 0 6px 18px rgba(0,0,0,0.06); font-size:1rem; resize:vertical; background: linear-gradient(180deg, #fffefc, #fffdf9) }
 		.textbox:focus { outline:none; box-shadow: 0 6px 20px rgba(74,21,75,0.12); border-color: rgba(74,21,75,0.12) }
 		.hint { font-size:0.85rem; color: #666; }
@@ -119,38 +123,43 @@
 		@media (min-width: 640px) { .dummies-title { font-size:6rem } }
 		@media (min-width: 768px) { .dummies-title { font-size:8rem } }
 		.dummies-title { font-family: 'Oi', 'Bungee', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial }
+		.dummies-backing { display:inline-block; padding:0.35rem 0.75rem; border-radius:14px; background: var(--color-sepia-50); }
 	</style>
 
 	<div class="center">
 		<div class="header-wrap">
 			<div class="relative flex items-center justify-center">
 				<h1 class="title-h1">
-					<button type="button" on:click={dummyclicks} class="dummies-title">DUMMIES</button>
+					<span class="dummies-backing">
+						<button type="button" on:click={dummyclicks} class="dummies-title">DUMMIES</button>
+					</span>
 				</h1>
 			</div>
 		</div>
 
-		<div bind:this={container} class="mascot" aria-hidden="false">
-			<img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/70ed327e64e4e3a418c7ee8e75e28d2b8c675804_image.png" alt="The Dummies mascot" />
+		<div class="mascot-block">
+			<div bind:this={container} class="mascot" aria-hidden="false">
+				<img src="/images/mascot.png" alt="The Dummies mascot" />
 
-			{#each eyePositions as pos, i}
-				{#if i === 0}
-					<div class="eye" style="left:{pos.rx * 100}%; top:{pos.ry * 100}%; transform: translate(-50%, -50%) rotate(-8deg);">
-						<div class="pupil" style="transform: translate({pupils[i].x}px, {pupils[i].y}px);"></div>
-					</div>
+				{#each eyePositions as pos, i}
+					{#if i === 0}
+						<div class="eye" style="left:{pos.rx * 100}%; top:{pos.ry * 100}%; transform: translate(-50%, -50%) rotate(-8deg);">
+							<div class="pupil" style="transform: translate({pupils[i].x}px, {pupils[i].y}px);"></div>
+						</div>
+						{:else}
+						<div class="eye" style="left:{pos.rx * 100}%; top:{pos.ry * 100}%; transform: translate(-50%, -50%) rotate(-4deg);">
+							<div class="pupil" style="transform: translate({pupils[i].x}px, {pupils[i].y}px);"></div>
+						</div>
+						{/if}
+					{/each}
+			</div>
+			<div class="textbox-wrap">
+				{#if data?.user}
+					<p class="textbox static">Welcome back,<br> Head over to the shop to spend your pens🖋️ on school staff, and learning supplies!</p>
 				{:else}
-					<div class="eye" style="left:{pos.rx * 100}%; top:{pos.ry * 100}%; transform: translate(-50%, -50%) rotate(-4deg);">
-						<div class="pupil" style="transform: translate({pupils[i].x}px, {pupils[i].y}px);"></div>
-					</div>
+					<p class="textbox static">Dummies YSWS is back for v2! <br> Learn a new programming skill and get new equipment for learning irl! Pick up a new framework or language and earn yourself a github notebook, laptop stickers, pen sets etc. Now featuring a shop, and accounts (sign in with slack ⬇️)</p>
 				{/if}
-			{/each}
-		</div>
-		<div class="textbox-wrap">
-			{#if data?.user}
-				<p class="textbox static">Welcome back,<br> Head over to the shop to spend your pens🖋️ on school staff, and learning supplies!</p>
-			{:else}
-			<p class="textbox static">Dummies YSWS is back for v2! <br> Learn a new programming skill and get new equipment for learning irl! Pick up a new framework or language and earn yourself a github notebook, laptop stickers, pen sets etc. Now featuring a shop, and accounts (sign in with slack ⬇️)</p>
-			{/if}
+			</div>
 		</div>
 
 		{#if data?.user}

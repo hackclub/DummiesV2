@@ -26,7 +26,8 @@
 	body {
 		@apply text-stone-900;
 		background-color: var(--color-sepia-50);
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23fbf0dc'/%3E%3Cpath d='M12 18h12v12H12zM54 72h12v12H54zM90 24h8v8h-8zM30 96h10v10H30zM96 90h6v6h-6z' fill='%23e1c29b' opacity='0.45'/%3E%3Ccircle cx='18' cy='90' r='4' fill='%23d4aa87' opacity='0.35'/%3E%3Ccircle cx='96' cy='60' r='3' fill='%23d4aa87' opacity='0.35'/%3E%3C/svg%3E");
+		/* Use the SVG pattern that references a square image so squares are rendered from an image file */
+		background-image: url('/images/pattern.svg');
 		background-size: 200px;
 		background-attachment: fixed;
 	}
