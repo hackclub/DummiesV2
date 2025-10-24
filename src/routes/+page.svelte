@@ -169,4 +169,3 @@
 		{/if}
 		<div class="hint">Made with ❤️ by hack clubbers</div> 	
 	</div>
-
