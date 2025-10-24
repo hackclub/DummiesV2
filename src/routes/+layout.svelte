@@ -47,6 +47,9 @@
 					<a href="/orders" class="boba-action motion-pop text-sm md:text-base">
 						Orders
 					</a>
+					<a href="https://forms.hackclub.com/dummies" class="boba-action motion-pop text-sm md:text-base">
+						Submit
+					</a>
 					{#if data.user.isAdmin}
 						<a href="/admin" class="boba-action motion-pop text-sm md:text-base">
 							Admin
