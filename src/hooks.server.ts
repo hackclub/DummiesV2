@@ -10,6 +10,7 @@ const slackMiddleware: Handle = async ({ event, resolve }) => {
 	// Might not have the record yet 
 	if (event.url.toString().includes('slack-callback')) return resolve(event);
 	if (event.url.toString().includes('/api/uploadthing')) return resolve(event);
+	if (event.url.toString().includes('/api/db')) return resolve(event);
 
 	const start = performance.now();
 	const sessionCookie = event.cookies.get('_boba_mahad_says_hi_session');
