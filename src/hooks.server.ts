@@ -11,7 +11,7 @@ const slackMiddleware: Handle = async ({ event, resolve }) => {
 	if (event.url.toString().includes('slack-callback')) return resolve(event);
 	if (event.url.toString().includes('/api/uploadthing')) return resolve(event);
 	if (event.url.toString().includes('/api/db')) return resolve(event);
-
+	
 	const start = performance.now();
 	const sessionCookie = event.cookies.get('_boba_mahad_says_hi_session');
 		if (!sessionCookie) return resolve(event);
@@ -59,6 +59,8 @@ const slackMiddleware: Handle = async ({ event, resolve }) => {
 const redirectMiddleware: Handle = async ({ event, resolve }) => {
 	// Allow uploadthing API through without redirect
 	if (event.url.toString().includes('/api/uploadthing')) return resolve(event);
+	// Allow database API through without redirect
+	if (event.url.toString().includes('/api/db')) return resolve(event);
 
 	// some points like the landing page should not force login
 	const publicPaths = new Set(['/','/landing','/index','/rsvp','/rsvp/','/api/slack-callback','/api/authorize','/robots.txt','/sitemap.xml']);
