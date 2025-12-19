@@ -1,9 +1,9 @@
 import { json } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { sql } from 'drizzle-orm';
-import { DATABASE_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
-const API_KEY = DATABASE_API_KEY;
+const API_KEY = env.DATABASE_API_KEY;
 
 export async function POST({ request }) {
 	// Simple auth check
