@@ -4,12 +4,11 @@ import { db } from '$lib/server/db';
 import { shopItems, shopOrders } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 import { WebClient } from '@slack/web-api';
-import { SLACK_BOT_TOKEN, LOOPS_API_KEY } from '$env/static/private';
-
-const slack = new WebClient(SLACK_BOT_TOKEN);
+import { SLACK_BOT_TOKEN, LOOPS_API_KEY } from '$env/dynamic/private';
 
 async function getEmailFromSlackId(userId: string): Promise<string | null> {
 	try {
+		const slack = new WebClient(SLACK_BOT_TOKEN);
 		const result = await slack.users.info({
 			user: userId,
 		});
