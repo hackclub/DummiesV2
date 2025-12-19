@@ -1,4 +1,4 @@
-import { PUBLIC_SLACK_CLIENT_ID } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 import { redirect, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url }) => {
@@ -15,7 +15,7 @@ export const GET: RequestHandler = async ({ url }) => {
     throw redirect(302, '/api/slack-callback?mock_user=bort-the-fargler');
   }
 
-  const clientId = encodeURIComponent(PUBLIC_SLACK_CLIENT_ID || '');
+  const clientId = encodeURIComponent(env.PUBLIC_SLACK_CLIENT_ID || '');
   const scope = 'openid profile email';
   const authorizeUrl = `https://slack.com/openid/connect/authorize?response_type=code&client_id=${clientId}&scope=${encodeURIComponent(
     scope

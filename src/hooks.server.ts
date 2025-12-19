@@ -1,8 +1,8 @@
 import { sequence } from '@sveltejs/kit/hooks';
 import { db, usersWithTokens } from '$lib/server/db';
 import { redirect, type Handle } from '@sveltejs/kit';
-import { SESSIONS_SECRET } from '$env/static/private';
-import { PUBLIC_SLACK_CLIENT_ID } from '$env/static/public';
+import { env } from '$env/dynamic/private';
+import { env as publicEnv } from '$env/dynamic/public';
 import { symmetric } from '$lib/server/crypto';
 import { eq } from 'drizzle-orm';
 
@@ -18,7 +18,7 @@ const slackMiddleware: Handle = async ({ event, resolve }) => {
 
 		let slackId: string | undefined;
 		try {
-			slackId = await symmetric.decrypt(sessionCookie, SESSIONS_SECRET);
+			slackId = await symmetric.decrypt(sessionCookie, env.SESSIONS_SECRET!);
 			if (!slackId) throw new Error('Empty slackId');
 		} catch (err) {
 			// Hi mahad lol
@@ -74,7 +74,7 @@ const redirectMiddleware: Handle = async ({ event, resolve }) => {
 	if (!event.locals.user) {
 		// Force HTTPS for the redirect URI
 		const redirectUri = process.env.ORIGIN || event.url.origin.replace('http://', 'https://');
-		const authorizeUrl = `https://hackclub.slack.com/oauth/v2/authorize?scope=&user_scope=openid%2Cprofile%2Cemail&redirect_uri=${redirectUri}/api/slack-callback&client_id=${PUBLIC_SLACK_CLIENT_ID}`;
+		const authorizeUrl = `https://hackclub.slack.com/oauth/v2/authorize?scope=&user_scope=openid%2Cprofile%2Cemail&redirect_uri=${redirectUri}/api/slack-callback&client_id=${publicEnv.PUBLIC_SLACK_CLIENT_ID}`;
 		return redirect(302, authorizeUrl);
 	}
 

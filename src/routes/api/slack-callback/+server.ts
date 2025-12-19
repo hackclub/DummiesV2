@@ -1,5 +1,5 @@
-import { PUBLIC_SLACK_CLIENT_ID } from '$env/static/public';
-import { SESSIONS_SECRET, SLACK_CLIENT_SECRET } from '$env/static/private';
+import { env as publicEnv } from '$env/dynamic/public';
+import { env } from '$env/dynamic/private';
 import { db, rawUsers } from '$lib/server/db';
 import { json, redirect } from '@sveltejs/kit';
 import { symmetric } from '$lib/server/crypto';
@@ -54,7 +54,7 @@ export async function GET({ url, cookies }: RequestEvent) {
 				}
 			});
 
-		cookies.set('_boba_mahad_says_hi_session', await symmetric.encrypt(slackId, SESSIONS_SECRET), {
+		cookies.set('_boba_mahad_says_hi_session', await symmetric.encrypt(slackId, env.SESSIONS_SECRET!), {
 			path: '/',
 			maxAge: 60 * 60 * 24 * 90 // 90 days in seconds
 		});
@@ -70,8 +70,8 @@ export async function GET({ url, cookies }: RequestEvent) {
 
 	const exchangeUrl = new URL('https://slack.com/api/openid.connect.token');
 	const exchangeSearchParams = exchangeUrl.searchParams;
-	exchangeSearchParams.append('client_id', PUBLIC_SLACK_CLIENT_ID);
-	exchangeSearchParams.append('client_secret', SLACK_CLIENT_SECRET);
+	exchangeSearchParams.append('client_id', publicEnv.PUBLIC_SLACK_CLIENT_ID!);
+	exchangeSearchParams.append('client_secret', env.SLACK_CLIENT_SECRET!);
 	exchangeSearchParams.append('code', code);
 	
 	// Force HTTPS for the redirect URI
@@ -125,7 +125,7 @@ export async function GET({ url, cookies }: RequestEvent) {
 			}
 		});
 
-	cookies.set('_boba_mahad_says_hi_session', await symmetric.encrypt(slackId, SESSIONS_SECRET), {
+	cookies.set('_boba_mahad_says_hi_session', await symmetric.encrypt(slackId, env.SESSIONS_SECRET!), {
 		path: '/',
 		maxAge: 60 * 60 * 24 * 90 // 90 days in seconds
 	});
