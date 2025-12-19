@@ -4,11 +4,10 @@ import { db } from '$lib/server/db';
 import { shopItems, shopOrders } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 import { WebClient } from '@slack/web-api';
-import { SLACK_BOT_TOKEN, LOOPS_API_KEY } from '$env/dynamic/private';
 
 async function getEmailFromSlackId(userId: string): Promise<string | null> {
 	try {
-		const slack = new WebClient(SLACK_BOT_TOKEN);
+		const slack = new WebClient(process.env.SLACK_BOT_TOKEN);
 		const result = await slack.users.info({
 			user: userId,
 		});
@@ -75,7 +74,7 @@ export const PATCH: RequestHandler = async ({ request, locals }) => {
 			const res = await fetch("https://app.loops.so/api/v1/transactional", {
 				method: 'POST',
 				headers: {
-					Authorization: `Bearer ${LOOPS_API_KEY}`,
+					Authorization: `Bearer ${process.env.LOOPS_API_KEY}`,
 				},
 				body: JSON.stringify({
 					transactionalId: status === "fulfilled" ? "cmge904kq3fil070i2582g0yx" : "cmge93a9544ogzf0ijfkx26y3",
