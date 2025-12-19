@@ -1,0 +1,5 @@
+[build]
+providers = ["node"]
+
+[build.variables]
+NIXPACKS_NODE_VERSION = "22"
