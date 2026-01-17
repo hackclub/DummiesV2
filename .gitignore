@@ -31,3 +31,6 @@ fillout-submissions.csv
 backup.*
 
 scripts/grant-requests-*.json
+
+# Docker volumes
+data/
