@@ -13,7 +13,7 @@
 
 <div class="shop-grid">
   {#each shopItems as item}
-    <ItemCard {item} userTokens={10000} />
+    <ItemCard {item} userTokens={0} />
   {/each}
 </div>
 
