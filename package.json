@@ -51,7 +51,7 @@
 		"@uploadthing/svelte": "^7.3.2",
 		"canvas-confetti": "^1.9.3",
 		"country-list": "^2.4.1",
-		"devalue": "^5.6.2",
+		"devalue": "^5.6.4",
 		"dotenv": "^17.2.3",
 		"drizzle-orm": "^0.44.3",
 		"nanoid": "^5.1.5",
