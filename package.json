@@ -53,7 +53,7 @@
 		"country-list": "^2.4.1",
 		"devalue": "^5.6.2",
 		"dotenv": "^17.2.3",
-		"drizzle-orm": "^0.44.3",
+		"drizzle-orm": "^0.45.2",
 		"nanoid": "^5.1.5",
 		"pg": "^8.16.3",
 		"svelte-sonner": "^1.0.5",
